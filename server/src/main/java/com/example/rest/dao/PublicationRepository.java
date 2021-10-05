@@ -28,14 +28,14 @@ public interface PublicationRepository extends JpaRepository<Publication, Long> 
 	
 	@Async
 	@Query("SELECT p FROM Publication p JOIN FETCH p.comments WHERE p.id = (:id)")
-    Publication findByIdAndFetchCommentsEagerly(@Param("id") Long id);
+    	Publication findByIdAndFetchCommentsEagerly(@Param("id") Long id);
 	
 	@Async
 	@Query(value = "SELECT * from post p "
 			+ "INNER JOIN follower f on p.user_id=f.to_id "
 			+ "INNER JOIN utilisateur u on f.from_id=u.id "
 			+ "WHERE u.username=:username", nativeQuery=true)
-    CompletableFuture<Slice<Publication>> findNewPublications(@Param("username") String username, Pageable page);
+    	CompletableFuture<Slice<Publication>> findNewPublications(@Param("username") String username, Pageable page);
 	
 	@Async
 	CompletableFuture<Long> countByUtilisateur(User user);
